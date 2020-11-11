@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+UserType.destroy_all
+
+UserType.create!([{
+  name: 'administrator'
+},
+{
+  name: 'standardUser'
+}])
+
+p "Created #{UserType.count} user types"
