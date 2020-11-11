@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: 'UTF8'
+
+development:
+  adapter: postgresql
+  encoding: 'UTF8'
+  database: school-diary-development
+  username: postgres
+  password: Lato2020
+
+test:
+  adapter: postgresql
+  encoding: 'UTF8'
+  database: school-diary-test
+  username: postgres
+  password: Lato2020
