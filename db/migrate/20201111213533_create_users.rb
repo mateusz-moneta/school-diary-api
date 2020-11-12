@@ -3,11 +3,10 @@ class CreateUsers < ActiveRecord::Migration[6.0]
     create_table :users do |t|
       t.string :first_name
       t.string :last_name
-      t.string :user_name
-      t.string :password
       t.string :email
-      t.boolean :is_active
+      t.string :password
       t.references :user_type, null: false, foreign_key: true
+      t.boolean :is_active, default: true
 
       t.timestamps
     end

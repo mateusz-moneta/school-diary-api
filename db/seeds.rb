@@ -8,11 +8,12 @@
 
 UserType.destroy_all
 
-UserType.create!([{
-  name: 'administrator'
-},
-{
-  name: 'standardUser'
-}])
+UserType.create!([
+  { name: 'systemAdministrator' },
+  { name: 'educator' },
+  { name: 'teacher' },
+  { name: 'legalGuardian' },
+  { name: 'student' }
+])
 
 p "Created #{UserType.count} user types"

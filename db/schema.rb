@@ -24,11 +24,10 @@ ActiveRecord::Schema.define(version: 2020_11_11_213533) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "user_name"
-    t.string "password"
     t.string "email"
-    t.boolean "is_active"
+    t.string "password"
     t.bigint "user_type_id", null: false
+    t.boolean "is_active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_type_id"], name: "index_users_on_user_type_id"

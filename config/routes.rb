@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  post 'user/create'
-  get 'user/list'
+  post 'user/login'
+  post 'user/register'
 end
