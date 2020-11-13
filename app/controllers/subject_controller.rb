@@ -2,12 +2,22 @@ class SubjectController < ApplicationController
   before_action :authorized, only: [:auto_login]
 
   def create
-    @subject = Subject.create(subject_params)
-    return render json: @subject
+    @subject = Subject.new(subject_params)
+
+    if @subject.save
+      render json: @subject, status: :created, location: @subject
+    end
+
+    return render json: @subject.errors, status: :unprocessable_entity
   end
 
   def delete
-    Subject.find(params[:id]).destroy
+    if Subject.exists?(params[:id])
+      Subject.find(params[:id]).destroy
+      return
+    end
+
+    return render json: { errorKey: 'SUBJECT_NOT_FOUND' }, status: :unprocessable_entity
   end
 
   def list
@@ -15,14 +25,14 @@ class SubjectController < ApplicationController
   end
 
   def update
-    if (Subject.exists?(params[:id]))
+    if Subject.exists?(params[:id])
       @subject = Subject.find(params[:id])
       @subject.update(subject_params)
 
       return render json: @subject
     end
 
-    return render json: { errorKey: 'SUBJECT_NOT_FOUND' }
+    return render json: { errorKey: 'SUBJECT_NOT_FOUND' }, status: :unprocessable_entity
   end
 
   private

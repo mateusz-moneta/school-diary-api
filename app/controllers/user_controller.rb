@@ -1,9 +1,6 @@
-require 'bcrypt'
 require 'jwt'
 
 class UserController < ApplicationController
-  include BCrypt
-
   before_action :authorized, only: [:auto_login]
 
   def list
@@ -11,7 +8,7 @@ class UserController < ApplicationController
       .left_outer_joins(:user_type)
       .select("users.id, users.first_name, users.last_name, users.email, user_types.name")
 
-    if (params[:user_type])
+    if params[:user_type]
       return render json: @users.where(:user_types => { name: params[:user_type] }).all
     end
 
@@ -23,7 +20,7 @@ class UserController < ApplicationController
       .left_outer_joins(:user_type)
       .find_by({ email: params[:email], password: params[:password] })
 
-    if (@user)
+    if @user
       token = encode_token({ user_id: @user.id })
 
       return render json: {
@@ -36,14 +33,14 @@ class UserController < ApplicationController
   end
 
   def register
-    if (User.find_by({ email: params[:email], password: params[:password] }))
+    if User.exists?({ email: params[:email] })
       return render json: { errorKey: 'USER_ALREADY_EXIST' }, status: :unprocessable_entity
     end
 
     @user = User.new(register_params)
     @user.user_type = UserType.find_by name: params[:user_type]
 
-    if (@user.save)
+    if @user.save
       return render json: {
         user: { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, user_type: @user.user_type.name }
       }

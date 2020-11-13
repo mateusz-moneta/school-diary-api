@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_11_13_183852) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.bigint "user_type_id", null: false
     t.boolean "is_active", default: true
     t.datetime "created_at", precision: 6, null: false
