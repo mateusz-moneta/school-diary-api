@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_223949) do
+ActiveRecord::Schema.define(version: 2020_11_14_224958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,23 @@ ActiveRecord::Schema.define(version: 2020_11_14_223949) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "lesson_plans", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "class_unit_id", null: false
+    t.bigint "class_room_id", null: false
+    t.bigint "work_day_id", null: false
+    t.bigint "lesson_hour_id", null: false
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["class_room_id"], name: "index_lesson_plans_on_class_room_id"
+    t.index ["class_unit_id"], name: "index_lesson_plans_on_class_unit_id"
+    t.index ["lesson_hour_id"], name: "index_lesson_plans_on_lesson_hour_id"
+    t.index ["subject_id"], name: "index_lesson_plans_on_subject_id"
+    t.index ["user_id"], name: "index_lesson_plans_on_user_id"
+    t.index ["work_day_id"], name: "index_lesson_plans_on_work_day_id"
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.string "short_name"
@@ -67,4 +84,10 @@ ActiveRecord::Schema.define(version: 2020_11_14_223949) do
   end
 
   add_foreign_key "class_units", "users"
+  add_foreign_key "lesson_plans", "class_rooms"
+  add_foreign_key "lesson_plans", "class_units"
+  add_foreign_key "lesson_plans", "lesson_hours"
+  add_foreign_key "lesson_plans", "subjects"
+  add_foreign_key "lesson_plans", "users"
+  add_foreign_key "lesson_plans", "work_days"
 end

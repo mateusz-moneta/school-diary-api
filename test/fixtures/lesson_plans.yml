@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  class_unit: one
+  class_room: one
+  work_day: one
+  lesson_hour: one
+  subject: one
+
+two:
+  user: two
+  class_unit: two
+  class_room: two
+  work_day: two
+  lesson_hour: two
+  subject: two
