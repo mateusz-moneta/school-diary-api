@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_194417) do
+ActiveRecord::Schema.define(version: 2020_11_14_220835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "class_rooms", force: :cascade do |t|
+    t.string "designation"
+    t.string "location"
+    t.string "string"
+    t.decimal "floor"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "class_units", force: :cascade do |t|
     t.string "name"
@@ -42,5 +51,4 @@ ActiveRecord::Schema.define(version: 2020_11_14_194417) do
   end
 
   add_foreign_key "class_units", "users"
-  add_foreign_key "classes", "users"
 end
