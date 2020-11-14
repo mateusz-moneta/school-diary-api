@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-  delete 'subject/:id', to: 'subject#delete'
-  get 'subjects', to: 'subject#list'
-  post 'subject', to: 'subject#create'
-  put 'subject', to: 'subject#update'
+  resource :class_unit, :subject
+
   get 'user/auto_login'
-  get 'users', to: 'user#list'
-  post 'user/login'
-  post 'user/register'
+  get 'user', to: 'users#list'
+  post 'user/login', to: 'users#login'
+  post 'user/register', to: 'users#register'
 end

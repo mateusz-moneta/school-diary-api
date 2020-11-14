@@ -1,6 +1,4 @@
-require 'jwt'
-
-class UserController < ApplicationController
+class UsersController < ApplicationController
   before_action :authorized, only: [:auto_login]
 
   def list
@@ -10,7 +8,7 @@ class UserController < ApplicationController
       @users = params[:type].classify.constantize
     end
 
-    return render json: @users.select('users.id, users.first_name, users.last_name, users.email').all
+    render json: @users.select('users.id, users.first_name, users.last_name, users.email').all
   end
 
   def login
@@ -25,7 +23,7 @@ class UserController < ApplicationController
       }
     end
 
-    return render json: { errorKey: 'USER_HAS_NOT_EXIST' }, status: :unprocessable_entity
+    render json: { errorKey: 'USER_HAS_NOT_EXIST' }, status: :unprocessable_entity
   end
 
   def register
@@ -36,7 +34,7 @@ class UserController < ApplicationController
     @user = params[:type].classify.constantize.new(register_params)
 
     if @user.save
-      return render json: {
+      render json: {
         user: { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, type: @user.type }
       }
     end
