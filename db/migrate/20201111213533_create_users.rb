@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :last_name
       t.string :email
       t.string :password_digest
-      t.references :user_type, null: false, foreign_key: true
+      t.string :type
       t.boolean :is_active, default: true
 
       t.timestamps

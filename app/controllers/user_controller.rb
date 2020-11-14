@@ -5,26 +5,22 @@ class UserController < ApplicationController
 
   def list
     @users = User
-      .left_outer_joins(:user_type)
-      .select("users.id, users.first_name, users.last_name, users.email, user_types.name")
 
-    if params[:user_type]
-      return render json: @users.where(:user_types => { name: params[:user_type] }).all
+    if params[:type]
+      @users = params[:type].classify.constantize
     end
 
-    return render json: @users.all
+    return render json: @users.select('users.id, users.first_name, users.last_name, users.email').all
   end
 
   def login
-    @user = User
-      .left_outer_joins(:user_type)
-      .find_by({ email: params[:email], password: params[:password] })
+    @user = User.find_by({ email: params[:email] })
 
-    if @user
+    if @user && @user.authenticate(params[:password])
       token = encode_token({ user_id: @user.id })
 
       return render json: {
-        user: { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, user_type: @user.user_type.name },
+        user: { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, type: @user.type },
         token: token
       }
     end
@@ -37,12 +33,11 @@ class UserController < ApplicationController
       return render json: { errorKey: 'USER_ALREADY_EXIST' }, status: :unprocessable_entity
     end
 
-    @user = User.new(register_params)
-    @user.user_type = UserType.find_by name: params[:user_type]
+    @user = params[:type].classify.constantize.new(register_params)
 
     if @user.save
       return render json: {
-        user: { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, user_type: @user.user_type.name }
+        user: { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, type: @user.type }
       }
     end
   end

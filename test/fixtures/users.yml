@@ -6,7 +6,6 @@ one:
   password: MyString
   email: MyString
   is_active: false
-  user_type: one
 
 two:
   first_name: MyString
@@ -14,4 +13,3 @@ two:
   password: MyString
   email: MyString
   is_active: false
-  user_type: two

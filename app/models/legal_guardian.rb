@@ -1,0 +1,2 @@
+class LegalGuardian < User
+end

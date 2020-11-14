@@ -1,0 +1,2 @@
+class SystemAdministrator < User
+end
