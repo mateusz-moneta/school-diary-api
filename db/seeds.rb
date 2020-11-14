@@ -1,7 +1,14 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+WorkDay.destroy_all
+
+WorkDay.create!([
+    { name: 'Monday', short_name: 'MON' },
+    { name: 'Tuesday', short_name: 'TUE' },
+    { name: 'Wednesday', short_name: 'WED' },
+    { name: 'Thursday', short_name: 'THU' },
+    { name: 'Friday', short_name: 'FRI' }
+])
+
+p "Created #{WorkDay.count} work days"

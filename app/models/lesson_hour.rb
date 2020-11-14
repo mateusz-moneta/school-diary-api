@@ -1,0 +1,2 @@
+class LessonHour < ApplicationRecord
+end

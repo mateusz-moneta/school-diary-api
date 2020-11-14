@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hour_from: MyString
+  minute_from: MyString
+  hour_to: MyString
+  minute_to: MyString
+
+two:
+  hour_from: MyString
+  minute_from: MyString
+  hour_to: MyString
+  minute_to: MyString

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_220835) do
+ActiveRecord::Schema.define(version: 2020_11_14_223949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 2020_11_14_220835) do
     t.index ["user_id"], name: "index_class_units_on_user_id"
   end
 
+  create_table "lesson_hours", force: :cascade do |t|
+    t.string "hour_from"
+    t.string "minute_from"
+    t.string "hour_to"
+    t.string "minute_to"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.string "short_name"
@@ -46,6 +55,13 @@ ActiveRecord::Schema.define(version: 2020_11_14_220835) do
     t.string "password_digest"
     t.string "type"
     t.boolean "active", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "work_days", force: :cascade do |t|
+    t.string "name"
+    t.string "short_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
