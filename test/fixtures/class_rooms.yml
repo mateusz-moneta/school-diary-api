@@ -4,10 +4,9 @@ one:
   designation: MyString
   location: MyString
   string: MyString
-  floor: 
+  floor: MyString
 
 two:
   designation: MyString
   location: MyString
-  string: MyString
-  floor: 
+  floor: MyString

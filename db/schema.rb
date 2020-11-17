@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 2020_11_14_224958) do
   create_table "class_rooms", force: :cascade do |t|
     t.string "designation"
     t.string "location"
-    t.string "string"
-    t.decimal "floor"
+    t.integer "floor"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
