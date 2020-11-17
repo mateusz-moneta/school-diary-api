@@ -15,14 +15,17 @@ class ClassUnitsController < ApplicationController
   def destroy
     if ClassUnit.exists?(params[:id])
       ClassUnit.find(params[:id]).destroy
-      return
+      return render json: { id: params[:id] }
     end
 
     render json: { errorKey: 'CLASS_NOT_FOUND' }, status: :unprocessable_entity
   end
 
   def show
-    render json: ClassUnit.all
+    render json: {
+      data: ClassUnit.paginate(:page => params[:page], :per_page => params[:limit]),
+      records_count: ClassUnit.count
+    }
   end
 
   def update

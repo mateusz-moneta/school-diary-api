@@ -14,14 +14,17 @@ class SubjectsController < ApplicationController
   def destroy
     if Subject.exists?(params[:id])
       Subject.find(params[:id]).destroy
-      return
+      return render json: { id: params[:id] }
     end
 
     render json: { errorKey: 'SUBJECT_NOT_FOUND' }, status: :unprocessable_entity
   end
 
   def show
-    render json: Subject.all
+    render json: {
+      data: Subject.paginate(:page => params[:page], :per_page => params[:limit]),
+      records_count: Subject.count
+    }
   end
 
   def update

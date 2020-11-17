@@ -14,14 +14,17 @@ class LessonHoursController < ApplicationController
   def destroy
     if LessonHour.exists?(params[:id])
       LessonHour.find(params[:id]).destroy
-      return
+      return render json: { id: params[:id] }
     end
 
     render json: { errorKey: 'LESSON_HOUR_NOT_FOUND' }, status: :unprocessable_entity
   end
 
   def show
-    render json: LessonHour.all
+    render json: {
+      data: LessonHour.paginate(:page => params[:page], :per_page => params[:limit]),
+      records_count: LessonHour.count
+    }
   end
 
   def update

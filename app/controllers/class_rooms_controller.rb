@@ -14,14 +14,17 @@ class ClassRoomsController < ApplicationController
   def destroy
     if ClassRoom.exists?(params[:id])
       ClassRoom.find(params[:id]).destroy
-      return
+      return render json: { id: params[:id] }
     end
 
     render json: { errorKey: 'CLASS_ROOM_NOT_FOUND' }, status: :unprocessable_entity
   end
 
   def show
-    render json: ClassRoom.all
+    render json: {
+        data: ClassRoom.paginate(:page => params[:page], :per_page => params[:limit]),
+        records_count: ClassRoom.count
+    }
   end
 
   def update
