@@ -1,5 +1,12 @@
 class SubjectsController < ApplicationController
-  before_action :authorized, only: [:auto_login]
+  after_action :authorized
+
+  def index
+    render json: {
+      data: Subject.paginate(:page => params[:page], :per_page => params[:limit]),
+      records_count: Subject.count
+    }
+  end
 
   def create
     @subject = Subject.new(subject_params)
@@ -21,10 +28,7 @@ class SubjectsController < ApplicationController
   end
 
   def show
-    render json: {
-      data: Subject.paginate(:page => params[:page], :per_page => params[:limit]),
-      records_count: Subject.count
-    }
+    render json: Subject.find(params[:id])
   end
 
   def update

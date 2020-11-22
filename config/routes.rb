@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
-  resource :class_room, :class_unit, :lesson_hour, :lesson_plan, :subject
+  scope 'configuration' do
+    resources :class_rooms
+    resources :class_units
+    resources :lesson_hours
+    resources :lesson_plans
+    resources :subjects
+  end
 
-  get 'user/auto_login'
-  get 'user', to: 'users#list'
-  post 'user/login', to: 'users#login'
-  post 'user/register', to: 'users#register'
+  scope 'user' do
+    resource :registration, only: [:create]
+    resource :session, only: [:create, :destroy]
+  end
+
+  resources :users, only: [:index, :show]
 end

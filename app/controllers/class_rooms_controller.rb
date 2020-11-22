@@ -1,5 +1,12 @@
 class ClassRoomsController < ApplicationController
-  before_action :authorized, only: [:auto_login]
+  after_action :authorized
+
+  def index
+    render json: {
+      data: ClassRoom.paginate(:page => params[:page], :per_page => params[:limit]),
+      records_count: ClassRoom.count
+    }
+  end
 
   def create
     @class_room = ClassRoom.new(class_params)
@@ -21,10 +28,7 @@ class ClassRoomsController < ApplicationController
   end
 
   def show
-    render json: {
-        data: ClassRoom.paginate(:page => params[:page], :per_page => params[:limit]),
-        records_count: ClassRoom.count
-    }
+    render json: ClassRoom.find(params[:id])
   end
 
   def update

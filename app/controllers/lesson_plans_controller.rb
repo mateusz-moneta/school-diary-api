@@ -1,5 +1,12 @@
 class LessonPlansController < ApplicationController
-  before_action :authorized, only: [:auto_login]
+  after_action :authorized
+
+  def index
+    render json: {
+      data: LessonPlan.paginate(:page => params[:page], :per_page => params[:limit]),
+      records_count: LessonPlan.count
+    }
+  end
 
   def create
     @lesson_plan = LessonPlan.new
@@ -27,10 +34,7 @@ class LessonPlansController < ApplicationController
   end
 
   def show
-    render json: {
-      data: LessonPlan.paginate(:page => params[:page], :per_page => params[:limit]),
-      records_count: LessonPlan.count
-    }
+    render json: LessonPlan.find(params[:id])
   end
 
   def update
