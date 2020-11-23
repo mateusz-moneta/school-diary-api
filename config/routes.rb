@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   scope 'configuration' do
+    resources :assignments
     resources :class_rooms
     resources :class_units
     resources :lesson_hours
