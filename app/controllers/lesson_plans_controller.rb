@@ -3,7 +3,26 @@ class LessonPlansController < ApplicationController
 
   def index
     render json: {
-      data: LessonPlan.paginate(:page => params[:page], :per_page => params[:limit]),
+      data: LessonPlan
+        .joins(:user, :class_unit, :class_room, :work_day, :lesson_hour, :subject)
+        .select('
+          lesson_plans.id,
+          users.first_name,
+          users.last_name,
+          class_units.name,
+          class_rooms.designation,
+          work_days.name as work_day_name,
+          work_days.short_name as work_day_short_name,
+          lesson_hours.hour_from,
+          lesson_hours.minute_from,
+          lesson_hours.hour_to,
+          lesson_hours.minute_to,
+          subjects.name as subject_name,
+          subjects.short_name as subject_short_name,
+          lesson_plans.created_at,
+          lesson_plans.updated_at
+        ')
+        .paginate(:page => params[:page], :per_page => params[:limit]),
       records_count: LessonPlan.count
     }
   end
