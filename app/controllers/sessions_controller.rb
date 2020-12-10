@@ -5,15 +5,19 @@ class SessionsController < ApplicationController
     @user = User.find_by({ email: params[:email] })
 
     if @user && @user.authenticate(params[:password])
-      token = encode_token({ user_id: @user.id })
+      @token = encode_token({ user_id: @user.id })
 
       return render json: {
         user: { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, type: @user.type },
-        token: token
+        token: @token
       }
     end
 
     render json: { errorKey: 'USER_HAS_NOT_EXIST' }, status: :unprocessable_entity
+  end
+
+  def destroy
+    @token = nil
   end
 
   def auto_login
