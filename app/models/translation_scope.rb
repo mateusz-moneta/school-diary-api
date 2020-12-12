@@ -1,0 +1,2 @@
+class TranslationScope < ApplicationRecord
+end
