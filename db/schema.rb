@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_160301) do
+ActiveRecord::Schema.define(version: 2020_12_10_223431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 2020_11_22_160301) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_class_units_on_user_id"
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "lesson_hours", force: :cascade do |t|
@@ -73,6 +80,30 @@ ActiveRecord::Schema.define(version: 2020_11_22_160301) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "translation_keys", force: :cascade do |t|
+    t.string "key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "translation_scopes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "translations", force: :cascade do |t|
+    t.bigint "translation_key_id", null: false
+    t.bigint "translation_scope_id", null: false
+    t.bigint "language_id", null: false
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["language_id"], name: "index_translations_on_language_id"
+    t.index ["translation_key_id"], name: "index_translations_on_translation_key_id"
+    t.index ["translation_scope_id"], name: "index_translations_on_translation_scope_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -100,4 +131,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_160301) do
   add_foreign_key "lesson_plans", "subjects"
   add_foreign_key "lesson_plans", "users"
   add_foreign_key "lesson_plans", "work_days"
+  add_foreign_key "translations", "languages"
+  add_foreign_key "translations", "translation_keys"
+  add_foreign_key "translations", "translation_scopes"
 end

@@ -1,0 +1,2 @@
+class TranslationKey < ApplicationRecord
+end
