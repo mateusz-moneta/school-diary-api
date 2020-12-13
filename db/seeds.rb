@@ -141,6 +141,8 @@ Translation.create!([
   { translation_key_id: translationKeys[4].id, language_id: languages[1].id, translation_scope_id: translationScopes[4].id, value: 'Sale lekcyjne' },
   { translation_key_id: translationKeys[5].id, language_id: languages[0].id, translation_scope_id: translationScopes[4].id, value: 'Class rooms' },
   { translation_key_id: translationKeys[5].id, language_id: languages[1].id, translation_scope_id: translationScopes[4].id, value: 'Sale lekcyjne' },
+  { translation_key_id: translationKeys[6].id, language_id: languages[0].id, translation_scope_id: translationScopes[4].id, value: 'Class rooms' },
+  { translation_key_id: translationKeys[6].id, language_id: languages[1].id, translation_scope_id: translationScopes[4].id, value: 'Sale lekcyjne' }
 ])
 
 p "Created #{Translation.count} translations"
